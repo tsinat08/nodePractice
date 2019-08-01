@@ -1,13 +1,12 @@
 const api = require('./api.js');
 
-// Not an error-first callback
-let callbackFunc = (data) => {
-    console.log(`Something went right. Data: ${data}\n`);
+// An error-first callback
+let errorFirstCallback = (err, data) => {
+    if (err) {
+        console.log(`Something went wrong. ${err}\n`);
+    } else {
+        console.log(`Something went right. Data: ${data}\n`);
+    }
 };
 
-try {
-    api.naiveErrorProneAsyncFunction('problematic input', callbackFunc);
-} catch(err) {
-    console.log(`Something went wrong. ${err}\n`);
-}
-
+api.errorProneAsyncApi('problematic input', errorFirstCallback);
